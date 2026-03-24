@@ -5,6 +5,8 @@ A fork of [jarrodwatts/claude-hud](https://github.com/jarrodwatts/claude-hud) wi
 [![License](https://img.shields.io/github/license/nangongwentian-fe/claude-hud-cubence)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/nangongwentian-fe/claude-hud-cubence)](https://github.com/nangongwentian-fe/claude-hud-cubence/stargazers)
 
+![Claude HUD Cubence preview](claude-hud-preview.jpg)
+
 ## What's New
 
 Adds a **Cubence** segment to the context line, showing your account balance and API latency:
