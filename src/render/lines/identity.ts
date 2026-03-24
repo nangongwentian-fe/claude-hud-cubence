@@ -1,6 +1,6 @@
 import type { RenderContext } from '../../types.js';
 import { getContextPercent, getBufferedPercent, getTotalTokens } from '../../stdin.js';
-import { coloredBar, label, getContextColor, RESET } from '../colors.js';
+import { coloredBar, label, getContextColor, green, dim, RESET } from '../colors.js';
 import { getAdaptiveBarWidth } from '../../utils/terminal.js';
 
 const DEBUG = process.env.DEBUG?.includes('claude-hud') || process.env.DEBUG === '*';
@@ -32,6 +32,10 @@ export function renderIdentityLine(ctx: RenderContext): string {
       const cache = formatTokens((usage.cache_creation_input_tokens ?? 0) + (usage.cache_read_input_tokens ?? 0));
       line += label(` (in: ${input}, cache: ${cache})`, colors);
     }
+  }
+
+  if (display?.showCubenceBalance && ctx.cubenceData) {
+    line += ` │ ${formatCubenceBalance(ctx)}`;
   }
 
   return line;
@@ -70,4 +74,20 @@ function formatContextValue(ctx: RenderContext, percent: number, mode: 'percent'
   }
 
   return `${percent}%`;
+}
+
+function formatCubenceBalance(ctx: RenderContext): string {
+  const data = ctx.cubenceData;
+  if (!data) return '';
+  const colors = ctx.config?.colors;
+
+  const balanceStr = `$${data.balanceDollar.toFixed(2)}`;
+  const latencyStr = data.latencyMs !== null ? dim(` ${data.latencyMs}ms`) : '';
+
+  if (data.hasSubscription) {
+    const fiveH = `$${data.fiveHourUsedDollar.toFixed(2)}/$${data.fiveHourLimitDollar.toFixed(2)}`;
+    return `${label('Cubence', colors)} ${green(`5h ${fiveH}`)} ${label(`bal ${balanceStr}`, colors)}${latencyStr}`;
+  }
+
+  return `${label('Cubence', colors)} ${green(balanceStr)}${latencyStr}`;
 }

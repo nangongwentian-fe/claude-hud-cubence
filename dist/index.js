@@ -7,6 +7,7 @@ import { loadConfig } from './config.js';
 import { parseExtraCmdArg, runExtraCmd } from './extra-cmd.js';
 import { getClaudeCodeVersion } from './version.js';
 import { getMemoryUsage } from './memory.js';
+import { getCubenceBalance } from './cubence.js';
 import { fileURLToPath } from 'node:url';
 import { realpathSync } from 'node:fs';
 export async function main(overrides = {}) {
@@ -21,6 +22,7 @@ export async function main(overrides = {}) {
         runExtraCmd,
         getClaudeCodeVersion,
         getMemoryUsage,
+        getCubenceBalance,
         render,
         now: () => Date.now(),
         log: console.log,
@@ -58,6 +60,9 @@ export async function main(overrides = {}) {
         const memoryUsage = config.display.showMemoryUsage && config.lineLayout === 'expanded'
             ? await deps.getMemoryUsage()
             : null;
+        const cubenceData = config.display.showCubenceBalance
+            ? await deps.getCubenceBalance()
+            : null;
         const ctx = {
             stdin,
             transcript,
@@ -69,6 +74,7 @@ export async function main(overrides = {}) {
             gitStatus,
             usageData,
             memoryUsage,
+            cubenceData,
             config,
             extraLabel,
             claudeCodeVersion,

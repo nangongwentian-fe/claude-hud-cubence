@@ -1,5 +1,6 @@
 import type { HudConfig } from './config.js';
 import type { GitStatus } from './git.js';
+import type { CubenceData } from './cubence.js';
 export interface StdinData {
     transcript_path?: string;
     cwd?: string;
@@ -82,6 +83,7 @@ export interface RenderContext {
     gitStatus: GitStatus | null;
     usageData: UsageData | null;
     memoryUsage: MemoryInfo | null;
+    cubenceData: CubenceData | null;
     config: HudConfig;
     extraLabel: string | null;
     claudeCodeVersion?: string;

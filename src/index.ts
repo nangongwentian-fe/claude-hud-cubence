@@ -7,6 +7,7 @@ import { loadConfig } from './config.js';
 import { parseExtraCmdArg, runExtraCmd } from './extra-cmd.js';
 import { getClaudeCodeVersion } from './version.js';
 import { getMemoryUsage } from './memory.js';
+import { getCubenceBalance } from './cubence.js';
 import type { RenderContext } from './types.js';
 import { fileURLToPath } from 'node:url';
 import { realpathSync } from 'node:fs';
@@ -22,6 +23,7 @@ export type MainDeps = {
   runExtraCmd: typeof runExtraCmd;
   getClaudeCodeVersion: typeof getClaudeCodeVersion;
   getMemoryUsage: typeof getMemoryUsage;
+  getCubenceBalance: typeof getCubenceBalance;
   render: typeof render;
   now: () => number;
   log: (...args: unknown[]) => void;
@@ -39,6 +41,7 @@ export async function main(overrides: Partial<MainDeps> = {}): Promise<void> {
     runExtraCmd,
     getClaudeCodeVersion,
     getMemoryUsage,
+    getCubenceBalance,
     render,
     now: () => Date.now(),
     log: console.log,
@@ -84,6 +87,9 @@ export async function main(overrides: Partial<MainDeps> = {}): Promise<void> {
     const memoryUsage = config.display.showMemoryUsage && config.lineLayout === 'expanded'
       ? await deps.getMemoryUsage()
       : null;
+    const cubenceData = config.display.showCubenceBalance
+      ? await deps.getCubenceBalance()
+      : null;
 
     const ctx: RenderContext = {
       stdin,
@@ -96,6 +102,7 @@ export async function main(overrides: Partial<MainDeps> = {}): Promise<void> {
       gitStatus,
       usageData,
       memoryUsage,
+      cubenceData,
       config,
       extraLabel,
       claudeCodeVersion,
