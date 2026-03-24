@@ -1,17 +1,17 @@
 {
-  "name": "claude-hud",
-  "description": "Real-time statusline HUD for Claude Code - context health, tool activity, agent tracking, and todo progress",
-  "version": "0.0.11",
+  "name": "claude-hud-cubence",
+  "description": "Real-time statusline HUD for Claude Code with Cubence balance display",
+  "version": "0.0.12",
   "author": {
-    "name": "Jarrod Watts",
-    "url": "https://github.com/jarrodwatts"
+    "name": "nangongwentian-fe",
+    "url": "https://github.com/nangongwentian-fe"
   },
   "commands": [
     "./commands/setup.md",
     "./commands/configure.md"
   ],
-  "homepage": "https://github.com/jarrodwatts/claude-hud",
-  "repository": "https://github.com/jarrodwatts/claude-hud",
+  "homepage": "https://github.com/nangongwentian-fe/claude-hud-cubence",
+  "repository": "https://github.com/nangongwentian-fe/claude-hud-cubence",
   "license": "MIT",
   "keywords": ["hud", "monitoring", "statusline", "context", "tools", "agents", "todos", "claude-code"]
 }
